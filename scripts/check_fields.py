@@ -20,12 +20,22 @@ def check_type_fields(soup):
 
     if tileDetails:
         if 'oasis' in tileDetails.get('class', []):
-            print("oasis")
+            check_oasis_fields(soup)
         elif 'village' in tileDetails.get('class', []):
             check_village_fields(soup)
     else:
         logger.error(
             "Elemento com ID 'tileDetails' não encontrado no HTML.")
+
+
+def check_oasis_fields(soup):
+    map_details = soup.find(id='map_details')
+    if map_details:
+        if not check_field_occupied(soup):
+            # field_values = extract_text_from_element(soup)
+            print("oasis DESOCUPADO")
+        else: 
+            print("oasis ocupado")
 
 
 def check_village_fields(soup):
