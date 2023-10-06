@@ -18,3 +18,21 @@ def convert_json_to_html(response):
         logger.error(f"Erro ao decodificar JSON ou encontrar 'html': {str(e)}")
     except Exception as e:
         logger.error(f"Ocorreu um erro inesperado: {str(e)}")
+
+
+def load_json(file_name):
+    try:
+        with open(file_name, "r", encoding="utf-8") as json_file:
+            return json.load(json_file)
+    except FileNotFoundError:
+        return {}  # Se o arquivo não existir, comece com um dicionário vazio
+
+
+def save_json(data, file_name):
+    try:
+        with open(file_name, "w", encoding="utf-8") as json_file:
+            json.dump(data, json_file, ensure_ascii=False, indent=4)
+        print(f"Dados adicionados/salvos em '{file_name}' com sucesso.")
+    except Exception as e:
+        print(f"Ocorreu um erro ao salvar os dados em JSON: {str(e)}")
+

@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-from utils.file_utils import convert_json_to_html
+from utils.file_utils import convert_json_to_html, load_json, save_json
+
 
 import logging
 
@@ -32,12 +33,27 @@ def check_village_fields(soup):
     if map_details:
         if check_field_occupied(soup):
             field_values = extract_text_from_element(soup)
-            print(field_values)
+            check_and_save_tribe_type(field_values)
+
+
+def check_and_save_tribe_type(field_values):
+    tribe = field_values.get("tribe", "")
+    if tribe == "Natarianos":
+        file_name = "natarianos_file.json"
+    else:
+        file_name = "villages_file.json"
+   
+    existing_data = load_json(file_name)
+    # Crie uma chave única usando as coordenadas como string
+    chave = field_values['coordinates']
+    existing_data[chave] = field_values
+    save_json(existing_data, file_name)
+
 
 def check_field_occupied(soup):
     village_info = soup.find(id='village_info')
-    if village_info: return True
-        
+    if village_info:
+        return True
 
 
 def extract_text_from_element(soup):
