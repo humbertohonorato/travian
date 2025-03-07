@@ -30,6 +30,9 @@ SE id="map_details" EXIST:
 --------------------------------------------------
 
 
+
+
+
 SE id="tileDetails" EXIST, VERIFICA QUAL É A CLASS
 E OBTEM OS VALORES DAS CLASSES class="titleInHeader" E class="coordinatesWrapper"
 
